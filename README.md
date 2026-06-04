@@ -19,7 +19,7 @@ Slick single-page countdown site for the SpaceX IPO.
 
 ## Project
 - Nyxory project: nyx-mzr04gd0e05j7vr (SpaceX IPO Countdown)
-- GitHub: grokbuild-spacex (to be created under nenti)
+- GitHub: https://github.com/nenti/grokbuild-spacex (created)
 
 ## Status
-Repo initialized. Awaiting GitHub repo creation + Nyxory GitHub App permission grant before full implementation and deploy.
+GitHub repo created and initial commit pushed. Nyxory project ready. Next: grant Nyxory GitHub App access to the new repo, then clone + basic deploy (full slick features pending per "dont implement now").
