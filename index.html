@@ -1,2 +1,520 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>SPCX • SpaceX IPO Countdown</title><script src="https://cdn.tailwindcss.com"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"><style>body{background:#05070f;color:#e2e8f0}.star{position:absolute;background:white;border-radius:50%;animation:twinkle 1.5s infinite alternate}@keyframes twinkle{0%{opacity:.3}100%{opacity:1}}.countdown-box{background:rgba(15,23,42,.8);backdrop-filter:blur(12px);border:1px solid rgba(148,163,184,.2)}.stat-card{background:rgba(15,23,42,.6);border:1px solid rgba(148,163,184,.15);transition:transform .2s ease,border-color .2s ease}.stat-card:hover{transform:translateY(-2px);border-color:rgba(103,232,249,.4)}.section-title{letter-spacing:.2em}</style></head><body class="min-h-screen overflow-x-hidden"><div id="stars" class="fixed inset-0 pointer-events-none z-0"></div><div class="relative z-10"><nav class="border-b border-slate-800 bg-[#05070f]/80 backdrop-blur-md sticky top-0 z-50"><div class="max-w-5xl mx-auto px-6 py-5 flex items-center justify-between"><div class="flex items-center gap-3"><div class="w-9 h-9 rounded-full bg-white flex items-center justify-center"><i class="fa-solid fa-rocket text-[#05070f] text-xl"></i></div><div><div class="font-semibold tracking-[3px] text-xl">SPACEX</div><div class="text-[10px] text-slate-500 -mt-1">NASDAQ: SPCX</div></div></div><div class="text-xs uppercase tracking-[2px] text-slate-400">June 12, 2026 • Nasdaq Debut</div></nav><div class="max-w-5xl mx-auto px-6 pt-16 pb-12 text-center"><div class="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-slate-900 border border-slate-800 text-xs tracking-[2px] mb-6"><div class="w-2 h-2 bg-cyan-400 rounded-full animate-pulse"></div>LIVE COUNTDOWN</div><h1 class="text-7xl md:text-8xl font-bold tracking-tighter mb-3">SpaceX IPO</h1><p class="text-2xl text-slate-400 mb-2">The biggest public offering in history</p><div class="text-cyan-400 font-mono text-sm tracking-[4px] mt-1">TICKER • SPCX</div></div><div class="max-w-4xl mx-auto px-6 pb-16"><div class="text-center mb-6"><div class="uppercase text-xs tracking-[3px] text-slate-500 mb-2">Time until Nasdaq debut</div><div id="target-date" class="text-sm text-slate-400 font-mono">JUNE 12, 2026 • 09:30 ET</div></div><div class="grid grid-cols-2 md:grid-cols-4 gap-3 max-w-3xl mx-auto"><div class="countdown-box rounded-3xl p-6 text-center"><div id="days" class="text-6xl font-semibold tabular-nums font-mono text-white">--</div><div class="text-[10px] uppercase tracking-[2px] text-slate-500 mt-2">DAYS</div></div><div class="countdown-box rounded-3xl p-6 text-center"><div id="hours" class="text-6xl font-semibold tabular-nums font-mono text-white">--</div><div class="text-[10px] uppercase tracking-[2px] text-slate-500 mt-2">HOURS</div></div><div class="countdown-box rounded-3xl p-6 text-center"><div id="minutes" class="text-6xl font-semibold tabular-nums font-mono text-white">--</div><div class="text-[10px] uppercase tracking-[2px] text-slate-500 mt-2">MINUTES</div></div><div class="countdown-box rounded-3xl p-6 text-center"><div id="seconds" class="text-6xl font-semibold tabular-nums font-mono text-white">--</div><div class="text-[10px] uppercase tracking-[2px] text-slate-500 mt-2">SECONDS</div></div></div></div><div class="max-w-5xl mx-auto px-6 pb-20"><div class="text-center mb-8"><div class="uppercase text-xs tracking-[3px] text-slate-500 mb-1 section-title">By the numbers</div><div class="text-3xl font-semibold tracking-tight">Three headline stats</div></div><div class="grid md:grid-cols-3 gap-4"><div class="stat-card rounded-3xl p-8"><div class="flex items-center gap-3 mb-4"><i class="fa-solid fa-trophy text-2xl text-amber-400"></i><div class="uppercase text-xs tracking-[2px] text-amber-400">Record breaker</div></div><div class="text-5xl font-semibold tracking-tighter mb-1">#1</div><div class="text-xl text-white mb-3">Largest IPO ever</div><p class="text-sm text-slate-400">Surpassing all previous public listings in scale and market impact.</p></div><div class="stat-card rounded-3xl p-8"><div class="flex items-center gap-3 mb-4"><i class="fa-solid fa-chart-line text-2xl text-cyan-400"></i><div class="uppercase text-xs tracking-[2px] text-cyan-400">Valuation</div></div><div class="text-5xl font-semibold tracking-tighter mb-1">~$1.75T</div><div class="text-xl text-white mb-3">Post-IPO valuation</div><p class="text-sm text-slate-400">One of the most valuable companies to ever go public.</p></div><div class="stat-card rounded-3xl p-8"><div class="flex items-center gap-3 mb-4"><i class="fa-solid fa-money-bill-wave text-2xl text-emerald-400"></i><div class="uppercase text-xs tracking-[2px] text-emerald-400">Capital raise</div></div><div class="text-5xl font-semibold tracking-tighter mb-1">up to $75B</div><div class="text-xl text-white mb-3">Expected raise</div><p class="text-sm text-slate-400">Potential capital to be raised in the public markets debut.</p></div></div></div><footer class="border-t border-slate-800 py-8 text-center text-xs text-slate-500"><div class="max-w-5xl mx-auto px-6">Data illustrative • Built for demo on Nyxory</div></footer></div></div><script>function createStarfield(){const c=document.getElementById('stars');for(let i=0;i<160;i++){const s=document.createElement('div');s.className='star';const sz=Math.random()*2.8+.7;s.style.width=sz+'px';s.style.height=sz+'px';s.style.left=Math.random()*100+'vw';s.style.top=Math.random()*100+'vh';s.style.animationDuration=(1.4+Math.random()*2.2)+'s';s.style.opacity=.3+Math.random()*.6;if(Math.random()>.9){s.style.width=(sz*1.6)+'px';s.style.height=(sz*1.6)+'px';}c.appendChild(s);}}function startCountdown(){const tgt=new Date('2026-06-12T13:30:00Z').getTime();const els={d:document.getElementById('days'),h:document.getElementById('hours'),m:document.getElementById('minutes'),s:document.getElementById('seconds')};setInterval(()=>{let d=Math.max(0,tgt-Date.now());const days=Math.floor(d/86400000);d-=days*86400000;const hrs=Math.floor(d/3600000);d-=hrs*3600000;const mins=Math.floor(d/60000);d-=mins*60000;const secs=Math.floor(d/1000);els.d.textContent=String(days).padStart(2,'0');els.h.textContent=String(hrs).padStart(2,'0');els.m.textContent=String(mins).padStart(2,'0');els.s.textContent=String(secs).padStart(2,'0');},1000);}window.onload=()=>{createStarfield();startCountdown();};</script></body></html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SPCX · SpaceX IPO Countdown</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #030508;
+      --surface: rgba(12, 18, 32, 0.72);
+      --border: rgba(148, 163, 184, 0.14);
+      --cyan: #22d3ee;
+      --cyan-dim: rgba(34, 211, 238, 0.35);
+      --text: #e2e8f0;
+      --muted: #94a3b8;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      min-height: 100%;
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', system-ui, sans-serif;
+      overflow-x: hidden;
+    }
+
+    #starfield {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .glow-orb {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(80px);
+      pointer-events: none;
+      z-index: 1;
+    }
+    .glow-orb--a {
+      width: 420px; height: 420px;
+      top: -120px; right: -80px;
+      background: radial-gradient(circle, rgba(34, 211, 238, 0.12), transparent 70%);
+    }
+    .glow-orb--b {
+      width: 360px; height: 360px;
+      bottom: 10%; left: -100px;
+      background: radial-gradient(circle, rgba(99, 102, 241, 0.1), transparent 70%);
+    }
+
+    .page {
+      position: relative;
+      z-index: 2;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    nav {
+      border-bottom: 1px solid var(--border);
+      background: rgba(3, 5, 8, 0.75);
+      backdrop-filter: blur(16px);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+    .nav-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 1.1rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .brand-icon {
+      width: 2.25rem;
+      height: 2.25rem;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #fff 0%, #cbd5e1 100%);
+      display: grid;
+      place-items: center;
+      box-shadow: 0 0 24px rgba(255, 255, 255, 0.15);
+    }
+    .brand-icon svg { width: 1.1rem; height: 1.1rem; color: var(--bg); }
+    .brand-title {
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      font-size: 1.05rem;
+    }
+    .brand-ticker {
+      font-size: 0.65rem;
+      color: var(--muted);
+      letter-spacing: 0.12em;
+      margin-top: 0.1rem;
+    }
+    .nav-date {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--muted);
+      text-align: right;
+    }
+
+    main { flex: 1; }
+
+    .hero {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 4rem 1.5rem 2.5rem;
+      text-align: center;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.35rem 1rem;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.8);
+      border: 1px solid var(--border);
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 1.5rem;
+    }
+    .badge-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--cyan);
+      box-shadow: 0 0 12px var(--cyan);
+      animation: pulse 2s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.85); }
+    }
+    h1 {
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 900;
+      font-size: clamp(2.5rem, 8vw, 4.5rem);
+      letter-spacing: -0.02em;
+      line-height: 1.05;
+      background: linear-gradient(180deg, #fff 30%, #94a3b8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 0.75rem;
+    }
+    .hero-sub {
+      font-size: clamp(1rem, 2.5vw, 1.35rem);
+      color: var(--muted);
+      margin-bottom: 0.5rem;
+    }
+    .hero-ticker {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.8rem;
+      letter-spacing: 0.35em;
+      color: var(--cyan);
+      margin-top: 0.5rem;
+    }
+
+    .countdown-section {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 1.5rem 3rem;
+    }
+    .countdown-label {
+      text-align: center;
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.22em;
+      color: var(--muted);
+      margin-bottom: 0.5rem;
+    }
+    .countdown-target {
+      text-align: center;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.75rem;
+      color: #64748b;
+      letter-spacing: 0.08em;
+      margin-bottom: 1.5rem;
+    }
+    .countdown-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.75rem;
+    }
+    @media (max-width: 540px) {
+      .countdown-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    .countdown-unit {
+      background: var(--surface);
+      backdrop-filter: blur(14px);
+      border: 1px solid var(--border);
+      border-radius: 1.25rem;
+      padding: 1.5rem 0.75rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.25s ease, box-shadow 0.25s ease;
+    }
+    .countdown-unit::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(34, 211, 238, 0.06) 0%, transparent 50%);
+      pointer-events: none;
+    }
+    .countdown-unit:hover {
+      border-color: var(--cyan-dim);
+      box-shadow: 0 0 32px rgba(34, 211, 238, 0.08);
+    }
+    .countdown-value {
+      font-family: 'Orbitron', sans-serif;
+      font-size: clamp(2.25rem, 6vw, 3.25rem);
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
+      color: #fff;
+      line-height: 1;
+      transition: transform 0.15s ease;
+    }
+    .countdown-value.tick {
+      transform: scale(1.04);
+    }
+    .countdown-name {
+      font-size: 0.6rem;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--muted);
+      margin-top: 0.6rem;
+    }
+
+    .stats-section {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 1rem 1.5rem 4rem;
+    }
+    .stats-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .stats-header .eyebrow {
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.22em;
+      color: var(--muted);
+      margin-bottom: 0.35rem;
+    }
+    .stats-header h2 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+    }
+    @media (max-width: 768px) {
+      .stats-grid { grid-template-columns: 1fr; }
+    }
+    .stat-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 1.25rem;
+      padding: 1.75rem;
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+    .stat-card:hover {
+      transform: translateY(-3px);
+      border-color: rgba(148, 163, 184, 0.28);
+    }
+    .stat-card--gold:hover { border-color: rgba(251, 191, 36, 0.35); }
+    .stat-card--cyan:hover { border-color: var(--cyan-dim); }
+    .stat-card--emerald:hover { border-color: rgba(52, 211, 153, 0.35); }
+    .stat-meta {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+    }
+    .stat-card--gold .stat-meta { color: #fbbf24; }
+    .stat-card--cyan .stat-meta { color: var(--cyan); }
+    .stat-card--emerald .stat-meta { color: #34d399; }
+    .stat-value {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 2.25rem;
+      font-weight: 700;
+      margin-bottom: 0.25rem;
+    }
+    .stat-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 0.6rem;
+    }
+    .stat-desc {
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 1.5rem;
+      text-align: center;
+      font-size: 0.7rem;
+      color: #64748b;
+    }
+
+    .launched {
+      animation: launch 0.6s ease-out;
+    }
+    @keyframes launch {
+      0% { opacity: 0; transform: translateY(12px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <canvas id="starfield" aria-hidden="true"></canvas>
+  <div class="glow-orb glow-orb--a" aria-hidden="true"></div>
+  <div class="glow-orb glow-orb--b" aria-hidden="true"></div>
+
+  <div class="page">
+    <nav>
+      <div class="nav-inner">
+        <div class="brand">
+          <div class="brand-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L4.5 20h3.5l1-4h5l1 4H19.5L12 2zm0 7.2L14.8 14h-5.6L12 9.2z"/></svg>
+          </div>
+          <div>
+            <div class="brand-title">SPACEX</div>
+            <div class="brand-ticker">NASDAQ · SPCX</div>
+          </div>
+        </div>
+        <div class="nav-date">June 12, 2026 · Nasdaq Debut</div>
+      </div>
+    </nav>
+
+    <main>
+      <section class="hero launched">
+        <div class="badge"><span class="badge-dot"></span> Live countdown</div>
+        <h1>SpaceX IPO</h1>
+        <p class="hero-sub">The biggest public offering in history</p>
+        <p class="hero-ticker">TICKER · SPCX</p>
+      </section>
+
+      <section class="countdown-section launched" style="animation-delay: 0.1s">
+        <p class="countdown-label">Time until Nasdaq debut</p>
+        <p class="countdown-target">June 12, 2026 · 09:30 ET (market open)</p>
+        <div class="countdown-grid">
+          <div class="countdown-unit">
+            <div class="countdown-value" id="days">--</div>
+            <div class="countdown-name">Days</div>
+          </div>
+          <div class="countdown-unit">
+            <div class="countdown-value" id="hours">--</div>
+            <div class="countdown-name">Hours</div>
+          </div>
+          <div class="countdown-unit">
+            <div class="countdown-value" id="minutes">--</div>
+            <div class="countdown-name">Minutes</div>
+          </div>
+          <div class="countdown-unit">
+            <div class="countdown-value" id="seconds">--</div>
+            <div class="countdown-name">Seconds</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="stats-section launched" style="animation-delay: 0.2s">
+        <div class="stats-header">
+          <p class="eyebrow">By the numbers</p>
+          <h2>Three headline stats</h2>
+        </div>
+        <div class="stats-grid">
+          <article class="stat-card stat-card--gold">
+            <div class="stat-meta">◆ Record breaker</div>
+            <div class="stat-value">#1</div>
+            <div class="stat-title">Largest IPO ever</div>
+            <p class="stat-desc">Surpassing all previous public listings in scale and market impact.</p>
+          </article>
+          <article class="stat-card stat-card--cyan">
+            <div class="stat-meta">◆ Valuation</div>
+            <div class="stat-value">~$1.75T</div>
+            <div class="stat-title">Post-IPO valuation</div>
+            <p class="stat-desc">One of the most valuable companies to ever go public.</p>
+          </article>
+          <article class="stat-card stat-card--emerald">
+            <div class="stat-meta">◆ Capital raise</div>
+            <div class="stat-value">up to $75B</div>
+            <div class="stat-title">Expected raise</div>
+            <p class="stat-desc">Potential capital to be raised in the public markets debut.</p>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer>Illustrative figures for demo · Deployed on Nyxory</footer>
+  </div>
+
+  <script>
+    (function initStarfield() {
+      const canvas = document.getElementById('starfield');
+      const ctx = canvas.getContext('2d');
+      let w, h, stars = [], shooting = null;
+
+      function resize() {
+        w = canvas.width = window.innerWidth;
+        h = canvas.height = window.innerHeight;
+        const count = Math.floor((w * h) / 9000);
+        stars = Array.from({ length: count }, () => ({
+          x: Math.random() * w,
+          y: Math.random() * h,
+          z: Math.random() * 1.5 + 0.2,
+          r: Math.random() * 1.4 + 0.3,
+          tw: Math.random() * Math.PI * 2,
+          spd: Math.random() * 0.15 + 0.05
+        }));
+      }
+
+      function maybeShooting() {
+        if (!shooting && Math.random() < 0.002) {
+          shooting = {
+            x: Math.random() * w * 0.6,
+            y: Math.random() * h * 0.3,
+            len: 80 + Math.random() * 120,
+            life: 1
+          };
+        }
+      }
+
+      function draw() {
+        ctx.fillStyle = '#030508';
+        ctx.fillRect(0, 0, w, h);
+        const t = Date.now() * 0.001;
+
+        for (const s of stars) {
+          s.y += s.spd * s.z;
+          if (s.y > h) { s.y = 0; s.x = Math.random() * w; }
+          const flicker = 0.45 + 0.55 * Math.sin(t * 2 + s.tw);
+          ctx.beginPath();
+          ctx.arc(s.x, s.y, s.r * s.z, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(255,255,255,${flicker * (0.3 + s.z * 0.5)})`;
+          ctx.fill();
+        }
+
+        maybeShooting();
+        if (shooting) {
+          const g = ctx.createLinearGradient(
+            shooting.x, shooting.y,
+            shooting.x + shooting.len, shooting.y + shooting.len * 0.3
+          );
+          g.addColorStop(0, `rgba(255,255,255,${shooting.life})`);
+          g.addColorStop(1, 'rgba(255,255,255,0)');
+          ctx.strokeStyle = g;
+          ctx.lineWidth = 1.5;
+          ctx.beginPath();
+          ctx.moveTo(shooting.x, shooting.y);
+          ctx.lineTo(shooting.x + shooting.len, shooting.y + shooting.len * 0.3);
+          ctx.stroke();
+          shooting.life -= 0.04;
+          if (shooting.life <= 0) shooting = null;
+        }
+
+        requestAnimationFrame(draw);
+      }
+
+      window.addEventListener('resize', resize);
+      resize();
+      draw();
+    })();
+
+    (function initCountdown() {
+      const target = new Date('2026-06-12T13:30:00Z').getTime();
+      const ids = ['days', 'hours', 'minutes', 'seconds'];
+      const els = Object.fromEntries(ids.map(id => [id, document.getElementById(id)]));
+      let prev = {};
+
+      function pad(n) { return String(n).padStart(2, '0'); }
+
+      function tick() {
+        let diff = Math.max(0, target - Date.now());
+        const d = Math.floor(diff / 86400000); diff -= d * 86400000;
+        const h = Math.floor(diff / 3600000); diff -= h * 3600000;
+        const m = Math.floor(diff / 60000); diff -= m * 60000;
+        const s = Math.floor(diff / 1000);
+        const vals = { days: pad(d), hours: pad(h), minutes: pad(m), seconds: pad(s) };
+
+        for (const id of ids) {
+          if (prev[id] !== vals[id]) {
+            els[id].textContent = vals[id];
+            els[id].classList.add('tick');
+            setTimeout(() => els[id].classList.remove('tick'), 150);
+            prev[id] = vals[id];
+          }
+        }
+      }
+
+      tick();
+      setInterval(tick, 1000);
+    })();
+  </script>
+</body>
+</html>
