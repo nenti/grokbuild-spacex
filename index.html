@@ -1,31 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SPCX · SpaceX IPO Countdown</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SPCX — SpaceX IPO Countdown</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --bg: #030508;
-      --surface: rgba(12, 18, 32, 0.72);
-      --border: rgba(148, 163, 184, 0.14);
-      --cyan: #22d3ee;
-      --cyan-dim: rgba(34, 211, 238, 0.35);
-      --text: #e2e8f0;
-      --muted: #94a3b8;
+      --bg-deep: #030508;
+      --bg-mid: #0a0f1a;
+      --accent: #00d4ff;
+      --accent-glow: rgba(0, 212, 255, 0.35);
+      --gold: #f5c842;
+      --gold-glow: rgba(245, 200, 66, 0.25);
+      --text: #e8edf5;
+      --text-muted: #7a8ba8;
+      --card-bg: rgba(12, 18, 32, 0.65);
+      --card-border: rgba(0, 212, 255, 0.12);
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     html, body {
       min-height: 100%;
-      background: var(--bg);
-      color: var(--text);
-      font-family: 'Inter', system-ui, sans-serif;
       overflow-x: hidden;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--bg-deep);
+      color: var(--text);
+      line-height: 1.5;
     }
 
     #starfield {
@@ -35,485 +42,430 @@
       pointer-events: none;
     }
 
-    .glow-orb {
+    .nebula {
       position: fixed;
-      border-radius: 50%;
-      filter: blur(80px);
-      pointer-events: none;
+      inset: 0;
       z-index: 1;
-    }
-    .glow-orb--a {
-      width: 420px; height: 420px;
-      top: -120px; right: -80px;
-      background: radial-gradient(circle, rgba(34, 211, 238, 0.12), transparent 70%);
-    }
-    .glow-orb--b {
-      width: 360px; height: 360px;
-      bottom: 10%; left: -100px;
-      background: radial-gradient(circle, rgba(99, 102, 241, 0.1), transparent 70%);
+      pointer-events: none;
+      background:
+        radial-gradient(ellipse 80% 50% at 20% 30%, rgba(0, 80, 160, 0.15) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 40% at 80% 70%, rgba(120, 40, 200, 0.08) 0%, transparent 55%),
+        radial-gradient(ellipse 50% 30% at 50% 100%, rgba(0, 212, 255, 0.06) 0%, transparent 50%);
     }
 
-    .page {
-      position: relative;
+    .scanlines {
+      position: fixed;
+      inset: 0;
       z-index: 2;
+      pointer-events: none;
+      opacity: 0.03;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(255, 255, 255, 0.03) 2px,
+        rgba(255, 255, 255, 0.03) 4px
+      );
+    }
+
+    main {
+      position: relative;
+      z-index: 10;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
-    }
-
-    nav {
-      border-bottom: 1px solid var(--border);
-      background: rgba(3, 5, 8, 0.75);
-      backdrop-filter: blur(16px);
-      position: sticky;
-      top: 0;
-      z-index: 50;
-    }
-    .nav-inner {
+      align-items: center;
+      justify-content: center;
+      padding: 2.5rem 1.5rem 3rem;
       max-width: 1100px;
       margin: 0 auto;
-      padding: 1.1rem 1.5rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1rem;
     }
-    .brand {
+
+    .badge-row {
       display: flex;
       align-items: center;
       gap: 0.75rem;
-    }
-    .brand-icon {
-      width: 2.25rem;
-      height: 2.25rem;
-      border-radius: 50%;
-      background: linear-gradient(135deg, #fff 0%, #cbd5e1 100%);
-      display: grid;
-      place-items: center;
-      box-shadow: 0 0 24px rgba(255, 255, 255, 0.15);
-    }
-    .brand-icon svg { width: 1.1rem; height: 1.1rem; color: var(--bg); }
-    .brand-title {
-      font-family: 'Orbitron', sans-serif;
-      font-weight: 700;
-      letter-spacing: 0.18em;
-      font-size: 1.05rem;
-    }
-    .brand-ticker {
-      font-size: 0.65rem;
-      color: var(--muted);
-      letter-spacing: 0.12em;
-      margin-top: 0.1rem;
-    }
-    .nav-date {
-      font-size: 0.7rem;
-      text-transform: uppercase;
-      letter-spacing: 0.14em;
-      color: var(--muted);
-      text-align: right;
+      margin-bottom: 1.25rem;
+      flex-wrap: wrap;
+      justify-content: center;
     }
 
-    main { flex: 1; }
-
-    .hero {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 4rem 1.5rem 2.5rem;
-      text-align: center;
-    }
     .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.35rem 1rem;
-      border-radius: 999px;
-      background: rgba(15, 23, 42, 0.8);
-      border: 1px solid var(--border);
+      font-family: 'Orbitron', monospace;
       font-size: 0.65rem;
+      font-weight: 600;
       letter-spacing: 0.2em;
       text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 1.5rem;
+      padding: 0.35rem 0.85rem;
+      border: 1px solid var(--card-border);
+      border-radius: 2rem;
+      background: var(--card-bg);
+      backdrop-filter: blur(12px);
+      color: var(--text-muted);
     }
-    .badge-dot {
-      width: 6px; height: 6px;
+
+    .badge.live {
+      border-color: rgba(0, 255, 136, 0.3);
+      color: #00ff88;
+    }
+
+    .badge.live::before {
+      content: '';
+      display: inline-block;
+      width: 6px;
+      height: 6px;
       border-radius: 50%;
-      background: var(--cyan);
-      box-shadow: 0 0 12px var(--cyan);
-      animation: pulse 2s ease-in-out infinite;
+      background: #00ff88;
+      margin-right: 0.45rem;
+      vertical-align: middle;
+      animation: pulse-dot 1.5s ease-in-out infinite;
     }
-    @keyframes pulse {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.5; transform: scale(0.85); }
+
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; box-shadow: 0 0 6px #00ff88; }
+      50% { opacity: 0.4; box-shadow: none; }
     }
+
     h1 {
-      font-family: 'Orbitron', sans-serif;
+      font-family: 'Orbitron', monospace;
       font-weight: 900;
-      font-size: clamp(2.5rem, 8vw, 4.5rem);
-      letter-spacing: -0.02em;
-      line-height: 1.05;
-      background: linear-gradient(180deg, #fff 30%, #94a3b8 100%);
+      font-size: clamp(2rem, 6vw, 3.5rem);
+      text-align: center;
+      letter-spacing: 0.04em;
+      line-height: 1.15;
+      margin-bottom: 0.35rem;
+      background: linear-gradient(135deg, #fff 0%, var(--accent) 50%, #a8d8ff 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
-      margin-bottom: 0.75rem;
-    }
-    .hero-sub {
-      font-size: clamp(1rem, 2.5vw, 1.35rem);
-      color: var(--muted);
-      margin-bottom: 0.5rem;
-    }
-    .hero-ticker {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 0.8rem;
-      letter-spacing: 0.35em;
-      color: var(--cyan);
-      margin-top: 0.5rem;
     }
 
-    .countdown-section {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 0 1.5rem 3rem;
-    }
-    .countdown-label {
+    .ticker {
+      font-family: 'Orbitron', monospace;
+      font-size: clamp(3.5rem, 12vw, 6.5rem);
+      font-weight: 900;
+      letter-spacing: 0.12em;
       text-align: center;
-      font-size: 0.65rem;
-      text-transform: uppercase;
-      letter-spacing: 0.22em;
-      color: var(--muted);
+      color: var(--gold);
+      text-shadow:
+        0 0 40px var(--gold-glow),
+        0 0 80px rgba(245, 200, 66, 0.15);
       margin-bottom: 0.5rem;
+      animation: ticker-glow 3s ease-in-out infinite alternate;
     }
-    .countdown-target {
+
+    @keyframes ticker-glow {
+      from { text-shadow: 0 0 30px var(--gold-glow), 0 0 60px rgba(245, 200, 66, 0.1); }
+      to { text-shadow: 0 0 50px rgba(245, 200, 66, 0.4), 0 0 100px rgba(245, 200, 66, 0.2); }
+    }
+
+    .subtitle {
       text-align: center;
-      font-family: 'Orbitron', sans-serif;
-      font-size: 0.75rem;
-      color: #64748b;
-      letter-spacing: 0.08em;
-      margin-bottom: 1.5rem;
+      color: var(--text-muted);
+      font-size: 1.05rem;
+      font-weight: 300;
+      margin-bottom: 2.5rem;
+      max-width: 520px;
     }
-    .countdown-grid {
+
+    .subtitle strong {
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    .countdown {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 0.75rem;
+      gap: clamp(0.75rem, 3vw, 1.25rem);
+      width: 100%;
+      max-width: 720px;
+      margin-bottom: 3rem;
     }
-    @media (max-width: 540px) {
-      .countdown-grid { grid-template-columns: repeat(2, 1fr); }
-    }
+
     .countdown-unit {
-      background: var(--surface);
-      backdrop-filter: blur(14px);
-      border: 1px solid var(--border);
-      border-radius: 1.25rem;
-      padding: 1.5rem 0.75rem;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: clamp(1rem, 3vw, 1.5rem) 0.75rem;
       text-align: center;
+      backdrop-filter: blur(16px);
       position: relative;
       overflow: hidden;
-      transition: border-color 0.25s ease, box-shadow 0.25s ease;
+      transition: border-color 0.3s, transform 0.3s;
     }
+
     .countdown-unit::before {
       content: '';
       position: absolute;
-      inset: 0;
-      background: linear-gradient(180deg, rgba(34, 211, 238, 0.06) 0%, transparent 50%);
-      pointer-events: none;
-    }
-    .countdown-unit:hover {
-      border-color: var(--cyan-dim);
-      box-shadow: 0 0 32px rgba(34, 211, 238, 0.08);
-    }
-    .countdown-value {
-      font-family: 'Orbitron', sans-serif;
-      font-size: clamp(2.25rem, 6vw, 3.25rem);
-      font-weight: 700;
-      font-variant-numeric: tabular-nums;
-      color: #fff;
-      line-height: 1;
-      transition: transform 0.15s ease;
-    }
-    .countdown-value.tick {
-      transform: scale(1.04);
-    }
-    .countdown-name {
-      font-size: 0.6rem;
-      text-transform: uppercase;
-      letter-spacing: 0.2em;
-      color: var(--muted);
-      margin-top: 0.6rem;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+      opacity: 0.5;
     }
 
-    .stats-section {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 1rem 1.5rem 4rem;
+    .countdown-unit:hover {
+      border-color: rgba(0, 212, 255, 0.35);
+      transform: translateY(-2px);
     }
-    .stats-header {
-      text-align: center;
-      margin-bottom: 2rem;
-    }
-    .stats-header .eyebrow {
-      font-size: 0.65rem;
-      text-transform: uppercase;
-      letter-spacing: 0.22em;
-      color: var(--muted);
-      margin-bottom: 0.35rem;
-    }
-    .stats-header h2 {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 1.5rem;
+
+    .countdown-value {
+      font-family: 'Orbitron', monospace;
+      font-size: clamp(2rem, 8vw, 3.25rem);
       font-weight: 700;
+      color: var(--text);
+      line-height: 1;
+      font-variant-numeric: tabular-nums;
+      text-shadow: 0 0 20px var(--accent-glow);
     }
-    .stats-grid {
+
+    .countdown-label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--text-muted);
+      margin-top: 0.5rem;
+      font-weight: 500;
+    }
+
+    .target-date {
+      text-align: center;
+      font-family: 'Orbitron', monospace;
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      color: var(--text-muted);
+      margin-top: -2rem;
+      margin-bottom: 3rem;
+    }
+
+    .stats {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 1rem;
+      gap: 1.25rem;
+      width: 100%;
     }
-    @media (max-width: 768px) {
-      .stats-grid { grid-template-columns: 1fr; }
-    }
+
     .stat-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 1.25rem;
-      padding: 1.75rem;
-      transition: transform 0.2s ease, border-color 0.2s ease;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      padding: 1.75rem 1.25rem;
+      text-align: center;
+      backdrop-filter: blur(16px);
+      transition: border-color 0.3s, box-shadow 0.3s;
     }
+
     .stat-card:hover {
-      transform: translateY(-3px);
-      border-color: rgba(148, 163, 184, 0.28);
+      border-color: rgba(245, 200, 66, 0.25);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.04);
     }
-    .stat-card--gold:hover { border-color: rgba(251, 191, 36, 0.35); }
-    .stat-card--cyan:hover { border-color: var(--cyan-dim); }
-    .stat-card--emerald:hover { border-color: rgba(52, 211, 153, 0.35); }
-    .stat-meta {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      margin-bottom: 1rem;
-      font-size: 0.65rem;
-      text-transform: uppercase;
-      letter-spacing: 0.14em;
-    }
-    .stat-card--gold .stat-meta { color: #fbbf24; }
-    .stat-card--cyan .stat-meta { color: var(--cyan); }
-    .stat-card--emerald .stat-meta { color: #34d399; }
+
     .stat-value {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 2.25rem;
+      font-family: 'Orbitron', monospace;
+      font-size: clamp(1.35rem, 4vw, 1.85rem);
       font-weight: 700;
-      margin-bottom: 0.25rem;
+      color: var(--gold);
+      margin-bottom: 0.5rem;
+      line-height: 1.2;
     }
-    .stat-title {
-      font-size: 1.1rem;
-      font-weight: 600;
-      margin-bottom: 0.6rem;
-    }
-    .stat-desc {
+
+    .stat-label {
       font-size: 0.85rem;
-      color: var(--muted);
-      line-height: 1.5;
+      color: var(--text-muted);
+      font-weight: 400;
+      line-height: 1.4;
     }
 
     footer {
-      border-top: 1px solid var(--border);
-      padding: 1.5rem;
+      margin-top: 3rem;
       text-align: center;
-      font-size: 0.7rem;
-      color: #64748b;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      opacity: 0.6;
+      letter-spacing: 0.05em;
     }
 
     .launched {
-      animation: launch 0.6s ease-out;
+      display: none;
+      text-align: center;
+      margin-bottom: 2rem;
     }
-    @keyframes launch {
-      0% { opacity: 0; transform: translateY(12px); }
-      100% { opacity: 1; transform: translateY(0); }
+
+    .launched.visible {
+      display: block;
+    }
+
+    .launched h2 {
+      font-family: 'Orbitron', monospace;
+      font-size: 1.5rem;
+      color: #00ff88;
+      letter-spacing: 0.1em;
+      animation: launch-pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes launch-pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.7; }
+    }
+
+    @media (max-width: 700px) {
+      .stats { grid-template-columns: 1fr; }
+      .countdown { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 380px) {
+      .countdown { grid-template-columns: 1fr 1fr; }
     }
   </style>
 </head>
 <body>
   <canvas id="starfield" aria-hidden="true"></canvas>
-  <div class="glow-orb glow-orb--a" aria-hidden="true"></div>
-  <div class="glow-orb glow-orb--b" aria-hidden="true"></div>
+  <div class="nebula" aria-hidden="true"></div>
+  <div class="scanlines" aria-hidden="true"></div>
 
-  <div class="page">
-    <nav>
-      <div class="nav-inner">
-        <div class="brand">
-          <div class="brand-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L4.5 20h3.5l1-4h5l1 4H19.5L12 2zm0 7.2L14.8 14h-5.6L12 9.2z"/></svg>
-          </div>
-          <div>
-            <div class="brand-title">SPACEX</div>
-            <div class="brand-ticker">NASDAQ · SPCX</div>
-          </div>
-        </div>
-        <div class="nav-date">June 12, 2026 · Nasdaq Debut</div>
+  <main>
+    <div class="badge-row">
+      <span class="badge live">Countdown Active</span>
+      <span class="badge">NASDAQ</span>
+      <span class="badge">SpaceX</span>
+    </div>
+
+    <p class="ticker">SPCX</p>
+    <h1>SpaceX IPO</h1>
+    <p class="subtitle">Countdown to the historic <strong>Nasdaq debut</strong> — the largest public offering in market history.</p>
+
+    <div class="launched" id="launched">
+      <h2>🚀 WE HAVE LIFTOFF — SPCX IS LIVE</h2>
+    </div>
+
+    <div class="countdown" id="countdown" role="timer" aria-live="polite">
+      <div class="countdown-unit">
+        <div class="countdown-value" id="days">—</div>
+        <div class="countdown-label">Days</div>
       </div>
-    </nav>
+      <div class="countdown-unit">
+        <div class="countdown-value" id="hours">—</div>
+        <div class="countdown-label">Hours</div>
+      </div>
+      <div class="countdown-unit">
+        <div class="countdown-value" id="minutes">—</div>
+        <div class="countdown-label">Minutes</div>
+      </div>
+      <div class="countdown-unit">
+        <div class="countdown-value" id="seconds">—</div>
+        <div class="countdown-label">Seconds</div>
+      </div>
+    </div>
+    <p class="target-date" id="target-label">June 12, 2026 · 9:30 AM ET · Market Open</p>
 
-    <main>
-      <section class="hero launched">
-        <div class="badge"><span class="badge-dot"></span> Live countdown</div>
-        <h1>SpaceX IPO</h1>
-        <p class="hero-sub">The biggest public offering in history</p>
-        <p class="hero-ticker">TICKER · SPCX</p>
-      </section>
+    <section class="stats" aria-label="IPO headline statistics">
+      <article class="stat-card">
+        <div class="stat-value">#1</div>
+        <div class="stat-label">Largest IPO<br />in history</div>
+      </article>
+      <article class="stat-card">
+        <div class="stat-value">~$1.75T</div>
+        <div class="stat-label">Expected<br />valuation</div>
+      </article>
+      <article class="stat-card">
+        <div class="stat-value">$75B</div>
+        <div class="stat-label">Up to raised<br />at offering</div>
+      </article>
+    </section>
 
-      <section class="countdown-section launched" style="animation-delay: 0.1s">
-        <p class="countdown-label">Time until Nasdaq debut</p>
-        <p class="countdown-target">June 12, 2026 · 09:30 ET (market open)</p>
-        <div class="countdown-grid">
-          <div class="countdown-unit">
-            <div class="countdown-value" id="days">--</div>
-            <div class="countdown-name">Days</div>
-          </div>
-          <div class="countdown-unit">
-            <div class="countdown-value" id="hours">--</div>
-            <div class="countdown-name">Hours</div>
-          </div>
-          <div class="countdown-unit">
-            <div class="countdown-value" id="minutes">--</div>
-            <div class="countdown-name">Minutes</div>
-          </div>
-          <div class="countdown-unit">
-            <div class="countdown-value" id="seconds">--</div>
-            <div class="countdown-name">Seconds</div>
-          </div>
-        </div>
-      </section>
-
-      <section class="stats-section launched" style="animation-delay: 0.2s">
-        <div class="stats-header">
-          <p class="eyebrow">By the numbers</p>
-          <h2>Three headline stats</h2>
-        </div>
-        <div class="stats-grid">
-          <article class="stat-card stat-card--gold">
-            <div class="stat-meta">◆ Record breaker</div>
-            <div class="stat-value">#1</div>
-            <div class="stat-title">Largest IPO ever</div>
-            <p class="stat-desc">Surpassing all previous public listings in scale and market impact.</p>
-          </article>
-          <article class="stat-card stat-card--cyan">
-            <div class="stat-meta">◆ Valuation</div>
-            <div class="stat-value">~$1.75T</div>
-            <div class="stat-title">Post-IPO valuation</div>
-            <p class="stat-desc">One of the most valuable companies to ever go public.</p>
-          </article>
-          <article class="stat-card stat-card--emerald">
-            <div class="stat-meta">◆ Capital raise</div>
-            <div class="stat-value">up to $75B</div>
-            <div class="stat-title">Expected raise</div>
-            <p class="stat-desc">Potential capital to be raised in the public markets debut.</p>
-          </article>
-        </div>
-      </section>
-    </main>
-
-    <footer>Illustrative figures for demo · Deployed on Nyxory</footer>
-  </div>
+    <footer>Not affiliated with SpaceX or Nasdaq. For illustrative purposes.</footer>
+  </main>
 
   <script>
-    (function initStarfield() {
-      const canvas = document.getElementById('starfield');
-      const ctx = canvas.getContext('2d');
-      let w, h, stars = [], shooting = null;
+    (function () {
+      const TARGET = new Date('2026-06-12T13:30:00Z'); // 9:30 AM ET (EDT)
 
-      function resize() {
-        w = canvas.width = window.innerWidth;
-        h = canvas.height = window.innerHeight;
-        const count = Math.floor((w * h) / 9000);
-        stars = Array.from({ length: count }, () => ({
-          x: Math.random() * w,
-          y: Math.random() * h,
-          z: Math.random() * 1.5 + 0.2,
-          r: Math.random() * 1.4 + 0.3,
-          tw: Math.random() * Math.PI * 2,
-          spd: Math.random() * 0.15 + 0.05
-        }));
-      }
-
-      function maybeShooting() {
-        if (!shooting && Math.random() < 0.002) {
-          shooting = {
-            x: Math.random() * w * 0.6,
-            y: Math.random() * h * 0.3,
-            len: 80 + Math.random() * 120,
-            life: 1
-          };
-        }
-      }
-
-      function draw() {
-        ctx.fillStyle = '#030508';
-        ctx.fillRect(0, 0, w, h);
-        const t = Date.now() * 0.001;
-
-        for (const s of stars) {
-          s.y += s.spd * s.z;
-          if (s.y > h) { s.y = 0; s.x = Math.random() * w; }
-          const flicker = 0.45 + 0.55 * Math.sin(t * 2 + s.tw);
-          ctx.beginPath();
-          ctx.arc(s.x, s.y, s.r * s.z, 0, Math.PI * 2);
-          ctx.fillStyle = `rgba(255,255,255,${flicker * (0.3 + s.z * 0.5)})`;
-          ctx.fill();
-        }
-
-        maybeShooting();
-        if (shooting) {
-          const g = ctx.createLinearGradient(
-            shooting.x, shooting.y,
-            shooting.x + shooting.len, shooting.y + shooting.len * 0.3
-          );
-          g.addColorStop(0, `rgba(255,255,255,${shooting.life})`);
-          g.addColorStop(1, 'rgba(255,255,255,0)');
-          ctx.strokeStyle = g;
-          ctx.lineWidth = 1.5;
-          ctx.beginPath();
-          ctx.moveTo(shooting.x, shooting.y);
-          ctx.lineTo(shooting.x + shooting.len, shooting.y + shooting.len * 0.3);
-          ctx.stroke();
-          shooting.life -= 0.04;
-          if (shooting.life <= 0) shooting = null;
-        }
-
-        requestAnimationFrame(draw);
-      }
-
-      window.addEventListener('resize', resize);
-      resize();
-      draw();
-    })();
-
-    (function initCountdown() {
-      const target = new Date('2026-06-12T13:30:00Z').getTime();
-      const ids = ['days', 'hours', 'minutes', 'seconds'];
-      const els = Object.fromEntries(ids.map(id => [id, document.getElementById(id)]));
-      let prev = {};
-
-      function pad(n) { return String(n).padStart(2, '0'); }
+      const pad = (n) => String(n).padStart(2, '0');
 
       function tick() {
-        let diff = Math.max(0, target - Date.now());
-        const d = Math.floor(diff / 86400000); diff -= d * 86400000;
-        const h = Math.floor(diff / 3600000); diff -= h * 3600000;
-        const m = Math.floor(diff / 60000); diff -= m * 60000;
-        const s = Math.floor(diff / 1000);
-        const vals = { days: pad(d), hours: pad(h), minutes: pad(m), seconds: pad(s) };
+        const now = Date.now();
+        const diff = TARGET - now;
 
-        for (const id of ids) {
-          if (prev[id] !== vals[id]) {
-            els[id].textContent = vals[id];
-            els[id].classList.add('tick');
-            setTimeout(() => els[id].classList.remove('tick'), 150);
-            prev[id] = vals[id];
-          }
+        if (diff <= 0) {
+          document.getElementById('launched').classList.add('visible');
+          document.getElementById('countdown').style.opacity = '0.35';
+          ['days', 'hours', 'minutes', 'seconds'].forEach((id) => {
+            document.getElementById(id).textContent = '00';
+          });
+          return;
         }
+
+        const s = Math.floor(diff / 1000);
+        const days = Math.floor(s / 86400);
+        const hours = Math.floor((s % 86400) / 3600);
+        const minutes = Math.floor((s % 3600) / 60);
+        const seconds = s % 60;
+
+        document.getElementById('days').textContent = pad(days);
+        document.getElementById('hours').textContent = pad(hours);
+        document.getElementById('minutes').textContent = pad(minutes);
+        document.getElementById('seconds').textContent = pad(seconds);
       }
 
       tick();
       setInterval(tick, 1000);
+
+      const canvas = document.getElementById('starfield');
+      const ctx = canvas.getContext('2d');
+      let stars = [];
+      let w, h;
+      const STAR_COUNT = 280;
+
+      function resize() {
+        w = canvas.width = window.innerWidth;
+        h = canvas.height = window.innerHeight;
+        stars = Array.from({ length: STAR_COUNT }, () => ({
+          x: Math.random() * w,
+          y: Math.random() * h,
+          z: Math.random() * 1.5 + 0.2,
+          r: Math.random() * 1.4 + 0.3,
+          twinkle: Math.random() * Math.PI * 2,
+          speed: Math.random() * 0.15 + 0.02,
+        }));
+      }
+
+      function drawStars(t) {
+        ctx.fillStyle = '#030508';
+        ctx.fillRect(0, 0, w, h);
+
+        for (const s of stars) {
+          s.y += s.speed * s.z;
+          if (s.y > h) {
+            s.y = 0;
+            s.x = Math.random() * w;
+          }
+
+          const tw = 0.5 + 0.5 * Math.sin(t * 0.002 + s.twinkle);
+          const alpha = (0.3 + tw * 0.7) * s.z;
+          const size = s.r * (0.8 + tw * 0.4);
+
+          ctx.beginPath();
+          ctx.arc(s.x, s.y, size, 0, Math.PI * 2);
+          ctx.fillStyle = s.z > 1 ? `rgba(200, 230, 255, ${alpha})` : `rgba(255, 255, 255, ${alpha * 0.7})`;
+          ctx.fill();
+
+          if (s.z > 1.1 && tw > 0.85) {
+            ctx.strokeStyle = `rgba(0, 212, 255, ${alpha * 0.3})`;
+            ctx.lineWidth = 0.5;
+            ctx.beginPath();
+            ctx.moveTo(s.x, s.y);
+            ctx.lineTo(s.x, s.y - size * 8);
+            ctx.stroke();
+          }
+        }
+
+        requestAnimationFrame(drawStars);
+      }
+
+      window.addEventListener('resize', resize);
+      resize();
+      requestAnimationFrame(drawStars);
     })();
   </script>
 </body>
